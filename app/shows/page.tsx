@@ -38,7 +38,7 @@ export default function ShowsPage() {
         const actorNats = show.出演者名单?.map(a => mapNation(a.国籍)) || [];
         if (!actorNats.some(n => selectedNats.includes(n))) return false;
       }
-      if (selectedDate && !(show.演出日期?.includes(selectedDate) || show.演出日期?.includes(selectedDate))) return false;
+      if (selectedDate && !show.演出日期数据?.includes(selectedDate)) return false;
       if (hideChanged && show.许可事项类型 !== '新办') return false;
       if (hideChanged && isMiscOrHidden(show)) return false;
       return true;
