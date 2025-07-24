@@ -64,7 +64,8 @@ export default function ShowTable({ shows, isMobile = false, hideChanged }: { sh
     };
   }, [openShow]);
 
-  const columns: GridColDef[] = [
+  // 列定义用 state 保存，初始有 minWidth: 300
+  const [columns, setColumns] = useState<GridColDef[]>([
     {
       field: '演出名称',
       headerName: '演出名称',
@@ -121,7 +122,15 @@ export default function ShowTable({ shows, isMobile = false, hideChanged }: { sh
         );
       },
     },
-  ];
+  ]);
+
+  // 初始渲染后移除minWidth限制
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setColumns(cols => cols.map(col => ({ ...col, minWidth: 1 })));
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
